@@ -26,7 +26,7 @@ class CreateNewUser implements CreatesNewUsers
             'tenant' => ['required', 'string', 'max:255', 'unique:tenants,name'],
             'domain' => ['required', 'string', 'max:255', 'unique:tenants,domain'],
         ])->validate();
-        $tenant = Tenant::create(['name' => $input['tenant'], 'domain' => $input['domain']]);
+        $tenant = Tenant::firstOrCreate(['name' => $input['tenant'], 'domain' => $input['domain']]);
 
         return User::create([
             'name' => $input['name'],
